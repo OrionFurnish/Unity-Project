@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 114373455169645802}
   - component: {fileID: 114271009258114212}
   - component: {fileID: 114438714787900798}
+  - component: {fileID: 114068831838047780}
   m_Layer: 8
   m_Name: Player
   m_TagString: Enemy
@@ -1284,7 +1285,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1230612724748582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.261802, y: -1.0749712e-17, z: 4.84124}
+  m_LocalPosition: {x: 4.931549, y: -1.8746254e-18, z: 0.8442562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4732755865627192}
@@ -2368,6 +2369,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114068831838047780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230612724748582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199ebef9a36a54b5688c25462a790b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114271009258114212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2381,8 +2393,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barsPrefab: {fileID: 1350120355309422, guid: e0232a5c319db4b0d9f12daeca799c83, type: 2}
   barsTarget: {fileID: 1556214589419770}
-  maxLife: 10
   dead: 0
+  maxLife: 10
+  maxStam: 10
 --- !u!114 &114373455169645802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2423,6 +2436,7 @@ MonoBehaviour:
   speed: 700
   attacking: 0
   hitDetect: {fileID: 0}
+  relativeMoveBone: {fileID: 1403131628099362}
   cameraTarget: {fileID: 1403131628099362}
 --- !u!114 &114659339697842118
 MonoBehaviour:

@@ -8,37 +8,37 @@ public class Controller : NetworkBehaviour {
 	public bool attacking;
 	private Rigidbody rb;
 	protected Animator anim;
-	public HitDetection hitDetect;
+	[HideInInspector] public HitDetection hitDetect;
+	protected Targeting targeting;
+	public GameObject relativeMoveBone;
+	float turnRate = 10f;
+	IEnumerator curRoutine;
 
-	void Start() {
-		rb = GetComponentInChildren<Rigidbody>();
-		anim = GetComponentInChildren<Animator>();
+	public virtual void Start() {
+		rb = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator>();
+		targeting = GetComponent<Targeting>();
+	}
+
+	public void TurnTowards(Vector3 target) {
+		if(curRoutine != null) {StopCoroutine(curRoutine);}
+		curRoutine = SF.TurnTowards(transform, target, turnRate);
+		StartCoroutine(curRoutine);
 	}
 
 	public void SetMoving(bool moving) {
 		anim.SetBool("Moving", moving);
-	}
-		
-	[ClientRpc] public void RpcAttack() {
-		if(!isLocalPlayer) {
-			this.attacking = true;
-			anim.SetBool("Attacking", this.attacking);
-		}
-	}
-
-	public void FinishAttack() {
-		this.attacking = false;
-		anim.SetBool("Attacking", this.attacking);
-		if(hitDetect.gameObject.activeInHierarchy) {hitDetect.Reset();}
 	}
 
 	public virtual void TryMove() {}
 
 	public virtual void Move(Vector3 target) {
 		if(target == transform.position) {return;}
-		float adjSpd = speed * Time.fixedDeltaTime;
-		target += new Vector3 (0, transform.position.y-target.y, 0);
-		SF.MoveTowards(rb, target, adjSpd);
-		transform.LookAt(target);
+		float adjSpd = speed * Time.deltaTime;
+		target.y = 0;
+		SF.MoveTowards(rb, target, adjSpd, relativeMoveBone.transform.position);
+		if(!targeting.hasTarget()) {
+			TurnTowards(target);
+		}
 	}
 }

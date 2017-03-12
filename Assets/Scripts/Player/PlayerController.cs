@@ -9,33 +9,51 @@ public class PlayerController : Controller {
 	Vector3 targetMovePos;
 	bool targetMove;
 	bool moving;
+	PlayerStats stats;
+
+	public override void Start() {
+		base.Start();
+		stats = GetComponent<PlayerStats>();
+	}
 
 	public override void OnStartLocalPlayer() {
 		Camera.main.GetComponent<FollowObject>().SetTarget(cameraTarget, gameObject);
 		localPlayer = gameObject;
 	}
 
-	void FixedUpdate() {
-		if (isLocalPlayer) {
+	void Update() {
+		if(isLocalPlayer) {
 			moving = false;
-			if(Input.GetKey(KeyCode.LeftShift) && !attacking) {
-				Attack ();
-				//if(isServer) {RpcAttack();}
-				//else {Attack();}
-			} else if(!attacking) {TryMove();}
+			if(Input.GetKey(KeyCode.LeftShift) && !attacking && stats.GetStamina() > 0f) {
+				Attack();
+			} else if(!attacking) {
+				if(Input.GetKeyDown("t")) {targeting.SetTarget();}
+				TryMove();
+			}
 			SetMoving(moving);
 		}
 	}
 
 	void Attack() {
+		stats.CmdDrainStamina(5f);
 		this.attacking = true;
 		anim.SetBool("Attacking", this.attacking);
 		if(isServer) {RpcAttack();} 
 		else {CmdAttack();}
 	}
 
-	[Command] void CmdAttack() {
-		RpcAttack();
+	[Command] void CmdAttack() {RpcAttack();}
+	[ClientRpc] private void RpcAttack() {
+		if(!isLocalPlayer) {
+			this.attacking = true;
+			anim.SetBool("Attacking", this.attacking);
+		}
+	}
+
+	public void FinishAttack() {
+		this.attacking = false;
+		anim.SetBool("Attacking", this.attacking);
+		if(hitDetect.gameObject.activeInHierarchy) {hitDetect.Reset();}
 	}
 
 	public override void TryMove() {
@@ -60,10 +78,7 @@ public class PlayerController : Controller {
 		base.Move(target);
 	}
 
-	public void AdjustPos(float adjAmount) {
-		StartCoroutine(Adjust(adjAmount));
-	}
-
+	public void AdjustPos(float adjAmount) {StartCoroutine(Adjust(adjAmount));}
 	IEnumerator Adjust(float adjAmount) {
 		float startTime = Time.time;
 		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo (0);

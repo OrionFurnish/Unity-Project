@@ -26,7 +26,7 @@ public class NetworkTransform : NetworkBehaviour {
 	void LerpInfo() {
 		if(!hasAuthority) {
 			float lerpDis = Vector3.Distance(transform.position, syncPos);
-			if (lerpDis > .05f) {control.SetMoving (true);} 
+			if (lerpDis > .05f) {control.SetMoving(true);} 
 			else {control.SetMoving (false);}
 			if(Time.deltaTime*posLerpRate < 1) {transform.position = Vector3.Lerp(transform.position, syncPos, Time.deltaTime*posLerpRate);}
 			else {transform.position = syncPos;}
