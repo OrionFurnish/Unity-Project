@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipSlot : InvSlot {
-	public List<EquipType> equippableTypes;
-	public Equipment equipment;
+	public static List<EquipSlot> equipSlots;
+	public EquipType equippableType;
+	public EquipmentDisplay equipDisplay;
+	private Stats stats;
 
 	void Start() {
-		equipment = PlayerController.localPlayer.GetComponent<Equipment>();
+		equipDisplay = PlayerController.localPlayer.GetComponent<EquipmentDisplay>();
+		if(equipSlots == null) {equipSlots = new List<EquipSlot>();}
+		equipSlots.Add(this);
+		stats = PlayerController.localPlayer.GetComponent<Stats>();
 	}
 
-	protected override Item ReplaceItem(Item newItem) {
-		if(newItem != null) {equipment.CmdEquip(newItem.modelName);}
-		else {equipment.CmdEquip("");}
+	public override InvItem ReplaceItem(InvItem newItem) {
+		if(invItem.item != null) {invItem.Unequip(stats);}
+		if(newItem.item != null) {
+			newItem.Equip(stats);
+			equipDisplay.EquipItem(newItem.item.equipType, newItem.item.modelName);
+		} else {equipDisplay.EquipItem(equippableType, "");}
 		return base.ReplaceItem(newItem);
 	}
 
 	protected override bool CheckRestrictions(Item item) {
-		return equippableTypes.Count == 0 || equippableTypes.Contains(item.equipType);
+		return equippableType == item.equipType;
 	}
 }

@@ -24,4 +24,8 @@ public class PointerIconCtrl : MonoBehaviour {
 		image.color = new Color(1, 1, 1, 0);
 		vis = false;
 	}
+
+	public static bool IsActive() {
+		return vis;
+	}
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 
 public class Controller : NetworkBehaviour {
-	public float speed;
 	public bool attacking;
 	private Rigidbody rb;
 	protected Animator anim;
@@ -13,11 +12,14 @@ public class Controller : NetworkBehaviour {
 	public GameObject relativeMoveBone;
 	float turnRate = 10f;
 	IEnumerator curRoutine;
+	private Stats stats;
 
 	public virtual void Start() {
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
 		targeting = GetComponent<Targeting>();
+		stats = GetComponent<Stats>();
+		stats.Speed = 700f;
 	}
 
 	public void TurnTowards(Vector3 target) {
@@ -34,7 +36,7 @@ public class Controller : NetworkBehaviour {
 
 	public virtual void Move(Vector3 target) {
 		if(target == transform.position) {return;}
-		float adjSpd = speed * Time.deltaTime;
+		float adjSpd = stats.Speed * Time.deltaTime;
 		target.y = 0;
 		SF.MoveTowards(rb, target, adjSpd, relativeMoveBone.transform.position);
 		if(!targeting.hasTarget()) {

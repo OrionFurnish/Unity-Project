@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 114373455169645802}
   - component: {fileID: 114271009258114212}
   - component: {fileID: 114438714787900798}
+  - component: {fileID: 114819680796399110}
   - component: {fileID: 114068831838047780}
   m_Layer: 8
   m_Name: Player
@@ -2394,8 +2395,6 @@ MonoBehaviour:
   barsPrefab: {fileID: 1350120355309422, guid: e0232a5c319db4b0d9f12daeca799c83, type: 2}
   barsTarget: {fileID: 1556214589419770}
   dead: 0
-  maxLife: 10
-  maxStam: 10
 --- !u!114 &114373455169645802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2451,7 +2450,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Enemy
   owner: {fileID: 1230612724748582}
-  damage: 2
+--- !u!114 &114819680796399110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230612724748582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1e72a211ec74c10afeb70e965148c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
 --- !u!114 &114836640745789690
 MonoBehaviour:
   m_ObjectHideFlags: 1

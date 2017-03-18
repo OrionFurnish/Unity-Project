@@ -6,13 +6,14 @@ using UnityEngine.Networking;
 public class HitDetection : NetworkBehaviour {
 	public string targetTag;
 	public GameObject owner;
-	public float damage;
 	private Controller control;
 	private List<GameObject> hitObjs;
+	private Stats stats;
 
 	void Awake() {
 		hitObjs = new List<GameObject>();
 		control = owner.GetComponent<Controller>();
+		stats = owner.GetComponent<Stats>();
 	}
 
 	void OnEnable() {
@@ -21,7 +22,7 @@ public class HitDetection : NetworkBehaviour {
 
 	public void OnCollisionEnter(Collision coll) {
 		if(control.attacking && coll.gameObject.tag == targetTag && coll.gameObject != owner && !hitObjs.Contains(coll.gameObject) && coll.gameObject.GetComponent<NetworkIdentity>().hasAuthority) {
-			coll.gameObject.GetComponent<PlayerStats>().CmdTakeDamage(damage);
+			coll.gameObject.GetComponent<PlayerBars>().CmdTakeDamage(stats.Damage);
 			hitObjs.Add(coll.gameObject);
 		}
 	}

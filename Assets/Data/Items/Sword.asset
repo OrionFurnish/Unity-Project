@@ -8,16 +8,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076e16555ad354b53a9ccd82d7327538, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b160c58e9a8e4570935fc0464d21029, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
   itemName: Sword
   modelName: SimpleSword
-  value: 100
+  value: 180
   maxStackCount: 1
   icon: {fileID: 21300000, guid: d29e45032edd74c92a5eaef66f9bfd2f, type: 3}
   itemType: 0
-  equipType: 2
+  equipType: 1
   discovery: 10
   description: A dangerous sword for stabbing people
-  damage: 2
+  damage: 4

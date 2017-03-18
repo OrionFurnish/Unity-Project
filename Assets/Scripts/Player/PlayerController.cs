@@ -9,11 +9,11 @@ public class PlayerController : Controller {
 	Vector3 targetMovePos;
 	bool targetMove;
 	bool moving;
-	PlayerStats stats;
+	PlayerBars playerBars;
 
 	public override void Start() {
 		base.Start();
-		stats = GetComponent<PlayerStats>();
+		playerBars = GetComponent<PlayerBars>();
 	}
 
 	public override void OnStartLocalPlayer() {
@@ -24,7 +24,7 @@ public class PlayerController : Controller {
 	void Update() {
 		if(isLocalPlayer) {
 			moving = false;
-			if(Input.GetKey(KeyCode.LeftShift) && !attacking && stats.GetStamina() > 0f) {
+			if(Input.GetKey(KeyCode.LeftShift) && !attacking && playerBars.GetStamina() > 0f) {
 				Attack();
 			} else if(!attacking) {
 				if(Input.GetKeyDown("t")) {targeting.SetTarget();}
@@ -35,7 +35,7 @@ public class PlayerController : Controller {
 	}
 
 	void Attack() {
-		stats.CmdDrainStamina(5f);
+		playerBars.CmdDrainStamina(5f);
 		this.attacking = true;
 		anim.SetBool("Attacking", this.attacking);
 		if(isServer) {RpcAttack();} 
@@ -60,7 +60,7 @@ public class PlayerController : Controller {
 		if(Input.GetKey(KeyCode.Mouse0)) {
 			RaycastHit hit;
 			int layerMask = ~(1 << gameObject.layer); // Ignore gameObject.layer
-			if(SF.MouseRaycast(out hit, layerMask) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !SF.GetWithinRange(hit.point, transform.position, .2f)) {
+			if(SF.MouseRaycast(out hit, layerMask) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !SF.GetWithinRange(hit.point, transform.position, .2f) && !PointerIconCtrl.IsActive()) {
 				if(Input.GetKey(KeyCode.LeftCommand)) {targetMove = true;}
 				else if(!targetMove) {Move(hit.point);}
 				if(targetMove) {targetMovePos = hit.point;}
