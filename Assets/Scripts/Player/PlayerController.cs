@@ -8,12 +8,16 @@ public class PlayerController : Controller {
 	public GameObject cameraTarget;
 	Vector3 targetMovePos;
 	bool targetMove;
-	bool moving;
 	PlayerBars playerBars;
+	EquipSlot quickSlot;
 
 	public override void Start() {
 		base.Start();
 		playerBars = GetComponent<PlayerBars>();
+		quickSlot = EquipSlot.equipSlots[6];
+		if(!isLocalPlayer) {
+			GetComponent<Rigidbody> ().isKinematic = true;
+		}
 	}
 
 	public override void OnStartLocalPlayer() {
@@ -23,21 +27,19 @@ public class PlayerController : Controller {
 
 	void Update() {
 		if(isLocalPlayer) {
-			moving = false;
-			if(Input.GetKey(KeyCode.LeftShift) && !attacking && playerBars.GetStamina() > 0f) {
-				Attack();
-			} else if(!attacking) {
+			if(Input.GetKeyDown("1")) {quickSlot.Consume();}
+			if(Input.GetKey(KeyCode.LeftShift) && !attacking && playerBars.GetStamina() > 0f) {Attack();} 
+			else if(!attacking) {
 				if(Input.GetKeyDown("t")) {targeting.SetTarget();}
 				TryMove();
-			}
-			SetMoving(moving);
+			} 
 		}
 	}
 
 	void Attack() {
 		playerBars.CmdDrainStamina(5f);
-		this.attacking = true;
-		anim.SetBool("Attacking", this.attacking);
+		attacking = true;
+		anim.SetTrigger("Attack");
 		if(isServer) {RpcAttack();} 
 		else {CmdAttack();}
 	}
@@ -45,15 +47,9 @@ public class PlayerController : Controller {
 	[Command] void CmdAttack() {RpcAttack();}
 	[ClientRpc] private void RpcAttack() {
 		if(!isLocalPlayer) {
-			this.attacking = true;
-			anim.SetBool("Attacking", this.attacking);
+			attacking = true;
+			anim.SetTrigger("Attack");
 		}
-	}
-
-	public void FinishAttack() {
-		this.attacking = false;
-		anim.SetBool("Attacking", this.attacking);
-		if(hitDetect.gameObject.activeInHierarchy) {hitDetect.Reset();}
 	}
 
 	public override void TryMove() {
@@ -64,17 +60,16 @@ public class PlayerController : Controller {
 				if(Input.GetKey(KeyCode.LeftCommand)) {targetMove = true;}
 				else if(!targetMove) {Move(hit.point);}
 				if(targetMove) {targetMovePos = hit.point;}
-			}
-		} if(targetMove) {
+			} else {SetMoving(relativeMoveBone.transform.position);}
+		} else if(targetMove) {
 			Move(targetMovePos);
 			if(SF.GetWithinRange(transform.position, targetMovePos, .5f) || Input.GetKeyDown(KeyCode.Mouse0)) {
 				targetMove = false;
 			}
-		}
+		} else {SetMoving(relativeMoveBone.transform.position);}
 	}
 
 	public override void Move(Vector3 target) {
-		moving = true;
 		base.Move(target);
 	}
 

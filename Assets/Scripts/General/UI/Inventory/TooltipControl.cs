@@ -7,7 +7,7 @@ public class TooltipControl : MonoBehaviour {
 	GameObject tooltipObj;
 	Text tooltipText;
 	RectTransform tooltipRect;
-	InvSlot slot;
+	public static Slot slot;
 	
 	void Start() {
 		tooltipObj = GameObject.Find("Tooltip Panel");
@@ -16,7 +16,6 @@ public class TooltipControl : MonoBehaviour {
 	}
 
 	void Update() {
-		slot = InvSlot.overSlot;
 		if(slot != null && slot.gameObject.activeInHierarchy) {
 			InvItem invItem = slot.Get();
 			if(!Input.GetMouseButton(0) && invItem.item != null) {

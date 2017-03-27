@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeMod : Modifier {
 	public float life;
 
-	public override void Equip(Stats stats) {stats.MaxLife += life;}
-	public override void Unequip(Stats stats) {stats.MaxLife -= life;}
+	public override void Equip(Stats stats) {stats.CmdAddMaxLife(life);}
+	public override void Unequip (Stats stats) {stats.CmdAddMaxLife(-life);}
 	public override string GetTooltip() {return "+" + life + " Life";}
 }

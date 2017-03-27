@@ -4,45 +4,32 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class Stats: NetworkBehaviour {
-	[Command] private void CmdUpdateDamage(float newDamage) {damage = newDamage;}
+	public static Stats localInstance;
+
+	public override void OnStartLocalPlayer() {
+		localInstance = this;
+	}
+
+	public override void OnStartServer () {
+		maxLife = 20f;
+		maxStam = 10f;
+	}
+
+	[Command] public void CmdAddDamage(float val) {damage += val;}
 	[SyncVar] private float damage;
-	public float Damage {
-		get {return damage;}
-		set {
-			if(isServer) {damage = value;}
-			else {CmdUpdateDamage(value);}
-		}
-	}
+	public float Damage {get{return damage;}}
 
-	[Command] private void CmdUpdateDefense(float newDefense) {defense = newDefense;}
+	[Command] public void CmdAddDefense(float val) {defense += val;}
 	[SyncVar] private float defense;
-	public float Defense {
-		get {return defense;} 
-		set {
-			if(isServer) {defense = value;}
-			else {CmdUpdateDefense(value);}
-		}
-	}
+	public float Defense {get{return defense;}}
 
-	[Command] private void CmdUpdateMaxLife(float newLife) {maxLife = newLife;}
+	[Command] public void CmdAddMaxLife(float val) {maxLife += val;}
 	[SyncVar] private float maxLife;
-	public float MaxLife {
-		get {return maxLife;}
-		set {
-			if(isServer) {maxLife = value;}
-			else {CmdUpdateMaxLife(value);}
-		}
-	}
+	public float MaxLife {get{return maxLife;}}
 
-	[Command] private void CmdUpdateMaxStam(float newStam) {maxStam = newStam;}
+	[Command] public void CmdAddMaxStam(float val) {maxStam += val;}
 	[SyncVar] private float maxStam;
-	public float MaxStam {
-		get {return maxStam;}
-		set {
-			if(isServer) {maxStam = value;}
-			else {CmdUpdateMaxStam(value);}
-		}
-	}
+	public float MaxStam {get{return maxStam;}}
 
 	private float baseSpeed;
 	public float speedMult = 1f;

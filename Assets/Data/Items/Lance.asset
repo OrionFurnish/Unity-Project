@@ -16,7 +16,7 @@ MonoBehaviour:
   value: 200
   maxStackCount: 1
   icon: {fileID: 21300000, guid: 1cacbe13df34f4691ac585dcbdb9beb7, type: 3}
-  itemType: 0
+  itemType: 1
   equipType: 1
   discovery: 10
   description: A mighty lance to impale your foes upon

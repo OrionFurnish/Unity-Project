@@ -16,7 +16,7 @@ MonoBehaviour:
   value: 150
   maxStackCount: 1
   icon: {fileID: 21300000, guid: 104bb6bb913194009b49ad4492e5e012, type: 3}
-  itemType: 1
+  itemType: 2
   equipType: 6
   discovery: 10
   description: Heavy plated boots for protecting your legs

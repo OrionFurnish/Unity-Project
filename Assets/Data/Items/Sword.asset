@@ -16,8 +16,8 @@ MonoBehaviour:
   value: 180
   maxStackCount: 1
   icon: {fileID: 21300000, guid: d29e45032edd74c92a5eaef66f9bfd2f, type: 3}
-  itemType: 0
+  itemType: 1
   equipType: 1
-  discovery: 10
+  discovery: 100
   description: A dangerous sword for stabbing people
   damage: 4

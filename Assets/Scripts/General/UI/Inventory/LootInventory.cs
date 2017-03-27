@@ -58,6 +58,7 @@ public class LootInventory : MonoBehaviour {
 				curDiscovery += pool.items[index].discovery;
 			} inventory[i].item = pool.items[index];
 			inventory[i].suffix = GenerateModifier();
+			inventory[i].count = Random.Range(1, inventory[i].item.maxStackCount+1);
 		}
 	}
 

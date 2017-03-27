@@ -2392,9 +2392,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa927aac1799439e9c4a4b0625089a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
   barsPrefab: {fileID: 1350120355309422, guid: e0232a5c319db4b0d9f12daeca799c83, type: 2}
   barsTarget: {fileID: 1556214589419770}
-  dead: 0
 --- !u!114 &114373455169645802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2410,6 +2410,7 @@ MonoBehaviour:
   inventoryPrefab: {fileID: 1681193114177388, guid: 8990b17f278804fedbda3f3c87281770,
     type: 2}
   weaponParent: {fileID: 4589849181433084}
+  invObj: {fileID: 0}
 --- !u!114 &114438714787900798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2432,7 +2433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5178bea14253d404eac0aa331ac3cb01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 700
   attacking: 0
   hitDetect: {fileID: 0}
   relativeMoveBone: {fileID: 1403131628099362}
@@ -2461,7 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1e72a211ec74c10afeb70e965148c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  speedMult: 1
 --- !u!114 &114836640745789690
 MonoBehaviour:
   m_ObjectHideFlags: 1

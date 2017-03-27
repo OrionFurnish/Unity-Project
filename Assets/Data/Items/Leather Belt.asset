@@ -16,7 +16,7 @@ MonoBehaviour:
   value: 80
   maxStackCount: 1
   icon: {fileID: 21300000, guid: cca9e3e0bf64d4f999e24f0012ec1440, type: 3}
-  itemType: 1
+  itemType: 2
   equipType: 7
   discovery: 10
   description: A leather belt for holding up your leather pants

@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaminaMod : Modifier {
 	public float stamina;
 
-	public override void Equip(Stats stats) {stats.MaxStam += stamina;}
-	public override void Unequip(Stats stats) {stats.MaxStam -= stamina;}
+	public override void Equip(Stats stats) {stats.CmdAddMaxStam(stamina);}
+	public override void Unequip (Stats stats) {stats.CmdAddMaxStam(-stamina);}
 	public override string GetTooltip() {return "+" + stamina + " Stamina";}
 }

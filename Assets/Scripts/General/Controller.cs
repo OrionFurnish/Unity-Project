@@ -28,13 +28,16 @@ public class Controller : NetworkBehaviour {
 		StartCoroutine(curRoutine);
 	}
 
-	public void SetMoving(bool moving) {
-		anim.SetBool("Moving", moving);
+	public void SetMoving(Vector3 target) {
+		Vector3 localDir = transform.InverseTransformDirection(SF.GetDirectionForce(relativeMoveBone.transform.position, target));
+		if(float.IsNaN(localDir.z)) {anim.SetFloat("Walking", 0);}
+		else{anim.SetFloat("Walking", localDir.z);}
 	}
 
 	public virtual void TryMove() {}
 
 	public virtual void Move(Vector3 target) {
+		SetMoving(target);
 		if(target == transform.position) {return;}
 		float adjSpd = stats.Speed * Time.deltaTime;
 		target.y = 0;
@@ -43,4 +46,11 @@ public class Controller : NetworkBehaviour {
 			TurnTowards(target);
 		}
 	}
+
+	public void ResetHitDetect() {
+		if(hitDetect.gameObject.activeInHierarchy) {hitDetect.Reset();}
+		attacking = false;
+	}
+
+	public void AllowQueueNextAttack() {}
 }

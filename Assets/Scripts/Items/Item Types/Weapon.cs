@@ -5,6 +5,6 @@ using UnityEngine;
 public class Weapon : Item {
 	public int damage = 0;
 
-	public override void Equip(Stats stats) {stats.Damage += damage;}
-	public override void Unequip (Stats stats) {stats.Damage -= damage;}
+	public override void Equip(Stats stats) {stats.CmdAddDamage(damage);}
+	public override void Unequip(Stats stats) {stats.CmdAddDamage(-damage);}
 }

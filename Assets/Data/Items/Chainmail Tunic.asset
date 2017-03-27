@@ -16,7 +16,7 @@ MonoBehaviour:
   value: 250
   maxStackCount: 1
   icon: {fileID: 21300000, guid: 4dd8bcf6a68df4ae5a1f6b24c307af03, type: 3}
-  itemType: 1
+  itemType: 2
   equipType: 4
   discovery: 10
   description: A tunic of tightly linked chains for keeping away enemy blades

@@ -16,7 +16,7 @@ MonoBehaviour:
   value: 150
   maxStackCount: 1
   icon: {fileID: 21300000, guid: 089b06e50b2c74117be69188ab9f1936, type: 3}
-  itemType: 1
+  itemType: 2
   equipType: 4
   discovery: 10
   description: A fine leather tunic!

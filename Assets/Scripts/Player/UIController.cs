@@ -8,7 +8,7 @@ public class UIController : NetworkBehaviour {
 	public Canvas canvas;
 	public GameObject inventoryPrefab;
 	public Transform weaponParent;
-	GameObject invObj;
+	[HideInInspector] public GameObject invObj;
 
 	public override void OnStartLocalPlayer() {
 		instance = this;

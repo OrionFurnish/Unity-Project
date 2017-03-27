@@ -5,6 +5,6 @@ using UnityEngine;
 public class Armor : Item {
 	public int defense = 0;
 
-	public override void Equip(Stats stats) {stats.Defense += defense;}
-	public override void Unequip (Stats stats) {stats.Defense -= defense;}
+	public override void Equip(Stats stats) {stats.CmdAddDefense(defense);}
+	public override void Unequip (Stats stats) {stats.CmdAddDefense(-defense);}
 }
