@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Equipment
-  - Enemy
+  - Worker
+  - Team1
+  - Team2
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - Character Collider
+  - Weapon
   - 
   - 
   - 

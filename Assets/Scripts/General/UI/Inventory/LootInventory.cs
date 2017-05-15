@@ -12,12 +12,15 @@ public class LootInventory : MonoBehaviour {
 	public int maxNumberOfItems;
 	public float magicChance;
 	public ModifierList modList;
+	public AudioClip chestClip;
+	private AudioSource audioSource;
 
 	void Start() {
 		inventoryDisplay = inventoryObj.GetComponentInChildren<Inventory>();
 		inventoryObj.SetActive(false);
 		inventory = new InvItem[inventoryDisplay.GetSlotCount()];
 		GenerateItems();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	void Update() {
@@ -34,6 +37,7 @@ public class LootInventory : MonoBehaviour {
 			inventoryDisplay.Set(i, inventory[i]);
 		} inventoryObj.SetActive(true);
 		currentChest = this;
+		audioSource.PlayOneShot (chestClip);
 	}
 
 	public void CloseInventory() {
@@ -41,6 +45,7 @@ public class LootInventory : MonoBehaviour {
 			inventory[i] = inventoryDisplay.Get(i);
 		} inventoryObj.SetActive(false);
 		currentChest = null;
+		audioSource.PlayOneShot (chestClip);
 	}
 
 	private void GenerateItems() {

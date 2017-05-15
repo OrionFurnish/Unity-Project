@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerBars : NetworkBehaviour {
+public class PlayerBars : LifeBar {
 	public static PlayerBars localInstance;
-	public bool dead = false;
-	public GameObject barsPrefab;
 	public GameObject barsTarget;
 	BarControl[] bars;
 	Stats stats;
-	[SyncVar] float curLife;
 	[SyncVar] float curStam;
 	bool draining = false;
 
-	void Awake() {
-		GameObject barsObj = Instantiate(barsPrefab, GameObject.Find("Bar Parent").transform);
-		barsObj.GetComponent<UIFollowObject>().target = barsTarget;
-		bars = barsObj.GetComponentsInChildren<BarControl>();
+	public override void Awake() {
+		barObj = Instantiate(barPrefab, GameObject.Find("Bar Parent").transform);
+		barObj.GetComponent<UIFollowObject>().target = barsTarget;
+		bars = barObj.GetComponentsInChildren<BarControl>();
 		stats = GetComponent<Stats>();
-
 	}
 
-	void Start() {
+	public override void Start() {
 		if(isServer) {
 			curLife = stats.MaxLife;
 			curStam = stats.MaxStam;
@@ -33,24 +29,15 @@ public class PlayerBars : NetworkBehaviour {
 		localInstance = this;
 	}
 
-	void Update() {
+	public override void Update() {
 		if(isServer && !draining) {curStam += 2.5f*Time.deltaTime;}
 		UpdateLife();
 		UpdateStam();
 	}
 
 	public float GetStamina() {return curStam;}
-	[Command] public void CmdTakeDamage(float damage) {curLife -= damage*(1f-stats.Defense/100f);}
-	[Command] public void CmdRestoreLife(float amount, float time) {StartCoroutine(RestoreLife(amount, time));}
+	[Command] public override void CmdTakeDamage(float damage) {curLife -= damage*(1f-stats.Defense/100f);}
 	[Command] public void CmdDrainStamina(float amount) {StartCoroutine(DrainStamina(amount, .25f));}
-
-	private IEnumerator RestoreLife(float amount, float time) {
-		float startTime = Time.time;
-		while (Time.time < startTime+time) {
-			curLife += amount*Time.deltaTime/time;
-			yield return null;
-		}
-	}
 
 	private IEnumerator DrainStamina(float amount, float time) {
 		float startTime = Time.time;
@@ -61,11 +48,12 @@ public class PlayerBars : NetworkBehaviour {
 		} draining = false;
 	}
 
-	private void UpdateLife() {
+	protected override void UpdateLife() {
 		if(curLife > stats.MaxLife) {curLife = stats.MaxLife;}
 		else if(curLife < 0) {
 			curLife = 0; 
 			dead = true;
+			NetworkServer.Destroy(gameObject);
 		} bars[0].UpdateBar(stats.MaxLife, curLife);
 	}
 

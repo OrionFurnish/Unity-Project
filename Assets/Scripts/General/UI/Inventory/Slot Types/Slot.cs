@@ -9,13 +9,13 @@ public struct InvItem {
 	public Modifier suffix;
 
 	public void Equip() {
-		item.Equip(Stats.localInstance);
-		if(suffix != null) {suffix.Equip(Stats.localInstance);}
+		item.Equip(PlayerStats.localInstance);
+		if(suffix != null) {suffix.Equip(PlayerStats.localInstance);}
 	}
 
 	public void Unequip() {
-		item.Unequip(Stats.localInstance);
-		if(suffix != null) {suffix.Unequip(Stats.localInstance);}
+		item.Unequip(PlayerStats.localInstance);
+		if(suffix != null) {suffix.Unequip(PlayerStats.localInstance);}
 	}
 
 	public int GetValue() {
@@ -31,11 +31,14 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 	private Image image;
 	private bool selected = false;
 	private Text countText;
+	public AudioClip buttonClip;
+	private AudioSource audioSource;
 
 	public virtual void Awake() {
 		image = GetComponent<Image>();
 		if(startItem.item != null) {AddItem(startItem);}
 		countText = GetComponentInChildren<Text>();
+		audioSource = Camera.main.GetComponent<AudioSource> ();
 	}
 
 	void OnEnable() {
@@ -98,6 +101,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 			selected = true;
 			image.color = Color.red;
 			PointerIconCtrl.Activate(invItem.item.icon);
+			audioSource.PlayOneShot (buttonClip);
 		}
 	}
 
@@ -105,5 +109,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 		image.color = Color.white;
 		selected = false;
 		PointerIconCtrl.Deactivate();
+		audioSource.PlayOneShot (buttonClip);
 	}
 }

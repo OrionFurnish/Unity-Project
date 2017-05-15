@@ -12,12 +12,12 @@ public class SF : MonoBehaviour {
 		return new Vector3(xDif/total, 0, zDif/total);
 	}
 
-	public static IEnumerator TurnTowards(Transform t, Vector3 target, float turnRate) {
-		Vector3 relativePos = target - t.position;
+	public static IEnumerator TurnTowards(Rigidbody rb, Vector3 target, float turnRate) {
+		Vector3 relativePos = target - rb.position;
 		relativePos.y = 0;
 		Quaternion rot = Quaternion.LookRotation(relativePos);
-		while(Quaternion.Angle(t.rotation, rot) != 0) {
-			t.rotation = Quaternion.Lerp(t.rotation, rot, turnRate*Time.deltaTime);
+		while(Quaternion.Angle(rb.rotation, rot) != 0) {
+			rb.MoveRotation(Quaternion.Lerp(rb.rotation, rot, turnRate*Time.deltaTime));
 			yield return null;
 		}
 	}

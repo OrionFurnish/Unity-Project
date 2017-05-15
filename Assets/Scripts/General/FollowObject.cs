@@ -14,7 +14,7 @@ public class FollowObject: MonoBehaviour {
 	public void SetTarget(GameObject target, GameObject yTarget) {
 		this.target = target;
 		this.yTarget = target;
-		offset = transform.position-new Vector3(target.transform.position.x, yTarget.transform.position.y, target.transform.position.z);
+		offset = transform.position-new Vector3(0, yTarget.transform.position.y, 0);
 	}
 
 	void Update () {

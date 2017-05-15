@@ -10,9 +10,3 @@ Current Features:
    Can target ("t" to target)
    Life and Stamina bar set up
    Is networked
-
-Working On/Planned:
-   Add armor that can animate with the player
-   Add dodge mechanic
-   Add stagger (when hit)
-   Improve on currently working systems

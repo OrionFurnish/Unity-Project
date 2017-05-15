@@ -17,5 +17,6 @@ public class Resources : MonoBehaviour {
 
 	void Awake() {
 		goldText = GetComponent<Text>();
+		Gold += 500;
 	}
 }

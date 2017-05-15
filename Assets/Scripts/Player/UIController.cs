@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class UIController : NetworkBehaviour {
 	public static UIController instance;
-	public Canvas canvas;
 	public GameObject inventoryPrefab;
 	public Transform weaponParent;
 	[HideInInspector] public GameObject invObj;

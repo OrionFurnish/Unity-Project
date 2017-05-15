@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Targeting : MonoBehaviour {
+	public GameObject targetableObj;
 	private static List<GameObject> possibleTargets;
 	private GameObject target;
 	private Controller control;
 
 	void Start() {
 		if(possibleTargets == null) {possibleTargets = new List<GameObject>();}
-		possibleTargets.Add (gameObject);
+		possibleTargets.Add (targetableObj);
 		control = GetComponent<Controller>();
 	}
 
@@ -28,7 +29,7 @@ public class Targeting : MonoBehaviour {
 		} GameObject closest = null;
 		float closestDist = 0f;
 		foreach (GameObject possibleTarget in possibleTargets) {
-			if (possibleTarget.tag == "Enemy" && possibleTarget != gameObject) {
+			if(possibleTarget.tag != targetableObj.tag) {
 				float dist = Vector3.Distance(possibleTarget.transform.position, transform.position);
 				if (closest == null || dist < closestDist) {
 					closest = possibleTarget;
@@ -36,5 +37,9 @@ public class Targeting : MonoBehaviour {
 				}
 			}
 		} target = closest;
+	}
+
+	public void SetTarget(GameObject target) {
+		this.target = target;
 	}
 }

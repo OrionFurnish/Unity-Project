@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020da5150322340c2940b0b6d8af27ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonClip: {fileID: 8300000, guid: 0c551f8cf174e4953b08f26506fffe71, type: 3}
 --- !u!114 &114722136056034492
 MonoBehaviour:
   m_ObjectHideFlags: 1
