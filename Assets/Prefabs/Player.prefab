@@ -2660,7 +2660,7 @@ MonoBehaviour:
   performing: 0
   attacking: 0
   hitDetect: {fileID: 0}
-  baseSpeed: 1200
+  baseSpeed: 1800
   walkClip: {fileID: 8300000, guid: 0386898a0003a454187a10f274e3067b, type: 3}
   cameraTarget: {fileID: 1403131628099362}
 --- !u!114 &114860343585648592

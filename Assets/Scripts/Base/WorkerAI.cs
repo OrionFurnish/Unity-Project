@@ -13,14 +13,14 @@ public class WorkerAI : NetworkBehaviour {
 	GameObject target;
 
 	void Start() {
-		Invoke ("DetermineLocalBase", 1f);
-		goldMine = baseMenu.goldMine.GetComponent<GoldMine>();
-		target = goldMine.gameObject;
+		Invoke ("DetermineLocalBase", 0f);
 	}
 
 	void DetermineLocalBase() {
 		if(hasAuthority) {baseMenu = BaseMenu.localBase.GetComponent<BaseMenu> ();}
 		else {baseMenu = BaseMenu.otherBase.GetComponent<BaseMenu> ();}
+		goldMine = baseMenu.goldMine.GetComponent<GoldMine>();
+		target = goldMine.gameObject;
 	}
 
 	void Update() {
